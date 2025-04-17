@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finance Joke Generator</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f4f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 500px;
+    }
+
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 1rem;
+    }
+
+    .setup, .punchline {
+      font-size: 1.2rem;
+      color: #34495e;
+      margin: 1rem 0;
+    }
+
+    .punchline {
+      display: none;
+    }
+
+    #revealBtn {
+      display: none;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      margin: 0.5rem;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .nav-link {
+      margin-top: 1.5rem;
+      display: inline-block;
+      color: #3498db;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .nav-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Finance Joke Generator 💸</h1>
+    <div class="setup" id="jokeSetup">Click below to get a joke!</div>
+    <div class="punchline" id="jokePunchline"></div>
+    <button onclick="showSetup()">Get Joke</button>
+    <button id="revealBtn" onclick="showPunchline()">Reveal Answer</button>
+
+    <!-- 🔗 Link back to home -->
+    <a class="nav-link" href="index.html">← Back to Home Page</a>
+  </div>
+
+  <script>
+    const jokes = [
+      { setup: "Why did the banker switch careers?", punchline: "He lost interest." },
+      { setup: "Why don’t stock market experts ever read novels?", punchline: "Because the only numbers in them are page numbers." },
+      { setup: "Why did the accountant break up with the calculator?", punchline: "They couldn’t count on each other anymore." },
+      { setup: "How do you drown a financial advisor?", punchline: "Put them in a pool of liquidity." },
+      { setup: "Why was the hedge fund manager always calm?", punchline: "Because he had plenty of options." },
+      { setup: "Why did the credit analyst break up with her boyfriend?", punchline: "He had too many red flags." },
+      { setup: "Why did the finance bro bring a ladder to the bar?", punchline: "He heard the drinks were on the house." },
+      { setup: "What’s a private equity firm’s favorite pickup line?", punchline: "'Let’s take this private.'" },
+      { setup: "Why don’t bulls ever get good sleep?", punchline: "Too many market swings at night." }
+    ];
+
+    let usedIndexes = [];
+    let currentJoke = {};
+
+    function showSetup() {
+      const setupEl = document.getElementById("jokeSetup");
+      const punchlineEl = document.getElementById("jokePunchline");
+      const revealBtn = document.getElementById("revealBtn");
+
+      if (usedIndexes.length === jokes.length) {
+        usedIndexes = [];
+      }
+
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * jokes.length);
+      } while (usedIndexes.includes(randomIndex));
+
+      usedIndexes.push(randomIndex);
+      currentJoke = jokes[randomIndex];
+
+      setupEl.textContent = currentJoke.setup;
+      punchlineEl.style.display = "none";
+      punchlineEl.textContent = "";
+      revealBtn.style.display = "inline-block";
+    }
+
+    function showPunchline() {
+      const punchlineEl = document.getElementById("jokePunchline");
+      punchlineEl.textContent = currentJoke.punchline;
+      punchlineEl.style.display = "block";
+    }
+  </script>
+</body>
+</html>
